@@ -56,5 +56,14 @@ static Task<IResult> PutBuyChair (DataContext db)
 }
 static Task<IResult> DeleteChair (DataContext db)
 {
+    if (await db.Todos.FindAsync(id) is Todo todo)
+    {         
+        db.Chair.Remove(chair.id);
+        await db.SaveChangesAsync(); 
+        return TypedResults.NoContent();
+    }
+    return TypedResults.NotFound();
+
+
 
 }
